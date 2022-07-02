@@ -100,7 +100,7 @@ if __name__ == '__main__':
                         help='number of threads (default: 1)',
                         type=int, default=1)
     parser.add_argument('--unique',
-                        help='extract only reads with unique sequence (default: False)',
+                        help='extract only reads with unique sequences',
                         action='store_false')
 
     args = parser.parse_args()
