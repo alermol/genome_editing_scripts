@@ -1,5 +1,6 @@
 """
-Script extracts information about length of mutations regardless on type
+Script takes bam file containing mutated reads and count number of mutation of
+each length from 1 to >=10 regardless to mutation type.
 """
 
 import re

@@ -1,5 +1,8 @@
 """
-This script extracts mutated reads from NGS deep amplicon sequencing
+Script takes bam file and create another bam file containing reads that covers
+define positions of reference and somehow differ from reference in this
+positions (mutated reads) because of SNP, insertion or deletion. Optionally only
+unique by sequence reads could be remained in resulted bam file.
 """
 
 import os

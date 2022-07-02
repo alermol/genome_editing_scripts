@@ -1,6 +1,6 @@
 """
-Script extracts information about types of mutation in unique mutated reads
-that cover specific position
+Script takes bam file containing mutated reads and count number of mutations for
+each type (SNP, insertion and deletion) inside defined positions range.
 """
 
 import re

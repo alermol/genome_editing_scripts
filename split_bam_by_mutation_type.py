@@ -1,6 +1,7 @@
 """
-This script splits mutated reads in bam file (result of extract_mutated_reads.py)
-into files containing either only SNPs or only insertions or only deletions
+Script takes baf file containing mutated reads, classified reads by mutation
+type (SNP, insertion or deletion) considering mutation only in defined positions
+range and write a bam file for each type of mutation.
 """
 
 import os
