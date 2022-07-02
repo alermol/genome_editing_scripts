@@ -2,7 +2,6 @@
 This script extracts mutated reads from NGS deep amplicon sequencing
 """
 
-from ast import parse
 import os
 import re
 from pathlib import Path
