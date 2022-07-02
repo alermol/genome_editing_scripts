@@ -23,7 +23,7 @@ def extract_mutations_info(bam_file: Path,
                            ref_fasta: Path,
                            start_pos: int,
                            end_pos: int,
-                           threads: int = 1):
+                           threads: int):
     insertion, deletion, snp = 0, 0, 0
     with pysam.AlignmentFile(bam_file, 'rb', threads=threads) as bam:
         for column in bam.pileup(contig=get_ref_name(ref_fasta=ref_fasta),
