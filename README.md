@@ -47,7 +47,7 @@ optional arguments:
 ```
 ### ***mutations_types_stats.py***
 
-Script takes bam file containing mutated reads and count number of mutations for each type (SNP, insertion and deletions) inside defined positions range.
+Script takes bam file containing mutated reads and count number of mutations for each type (SNP, insertion and deletion) inside defined positions range.
 
 ```None
 usage: mutations_types_stats.py [-h] [--threads] bam_file ref_fasta start_pos 
