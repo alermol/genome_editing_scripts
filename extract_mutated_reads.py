@@ -53,7 +53,7 @@ def extract_mutated_reads(bam_file: Path,
             for read, mut in zip(reads, mutations):
                 if ((mut != '.') &
                         (mut != ',') &
-                        (re.search(indel_pattern, str(mutations)) is None) &
+                        (re.search(indel_pattern, str(mut)) is None) &
                         (not read.alignment.is_duplicate) &
                         (read.alignment.mapping_quality > min_mapping_qual) &
                         (not read.alignment.is_supplementary) &
