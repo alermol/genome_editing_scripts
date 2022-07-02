@@ -2,6 +2,15 @@
 
 Repository contains scripts for analysis of NGS data acquired from samples after genome editing.
 
+## Usage
+
+```bash
+git clone https://github.com/alermol/genome_editing_scripts.git
+cd genome_editing_scripts/
+conda create -f enviroment.yaml
+```
+## Description of scripts
+
 ### ***extract_mutated_reads.py***
 Script takes bam file and create another bam file containing reads that covers define positions of reference and somehow differ from reference in this positions (mutated reads) because of SNP, insertion or deletion. Optionally only unique by sequence reads could be remained in resulted bam file.
 
