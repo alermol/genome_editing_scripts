@@ -1,7 +1,8 @@
 """
-This script extracts unique mutated reads from NGS deep amplicon sequencing
+This script extracts mutated reads from NGS deep amplicon sequencing
 """
 
+from ast import parse
 import os
 import re
 from pathlib import Path
@@ -31,6 +32,7 @@ def extract_mutated_reads(bam_file: Path,
                           end_pos: int,
                           min_mapping_qual: int,
                           max_indel_length: int,
+                          extract_unique: bool,
                           threads: int):
     """Function exctract unique reads with mutation in specific positions"""
     indel_pattern = re.compile(
@@ -58,7 +60,8 @@ def extract_mutated_reads(bam_file: Path,
                         (read.alignment.mapping_quality > min_mapping_qual) &
                         (not read.alignment.is_supplementary) &
                         (read.alignment.is_mapped)):
-                    if read.alignment.query_sequence in unique_sequences:
+                    if ((read.alignment.query_sequence in unique_sequences) &
+                            (not extract_unique)):
                         continue
                     else:
                         mutated_bam.write(read.alignment)
@@ -97,6 +100,9 @@ if __name__ == '__main__':
     parser.add_argument('--threads', metavar='',
                         help='number of threads (default: 1)',
                         type=int, default=1)
+    parser.add_argument('--unique',
+                        help='extract only reads with unique sequence (default: False)',
+                        action='store_false')
 
     args = parser.parse_args()
 
@@ -108,6 +114,7 @@ if __name__ == '__main__':
                           end_pos=args.end_pos,
                           min_mapping_qual=args.min_map_qual,
                           max_indel_length=args.max_indel_len,
+                          extract_unique=args.unique,
                           threads=args.threads)
     pysam.sort('-o', f'{args.output_bam}.sorted', f'{args.output_bam}')
     os.remove(f'{args.output_bam}')
