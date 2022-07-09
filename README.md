@@ -71,6 +71,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --threads   number of threads (default: 1)
+  --header    add header to results output
 ```
 
 ### ***mutation_length_distribution.py***
@@ -90,4 +91,5 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --threads   number of threads (default: 1)
+  --header    add header to results output
 ```
