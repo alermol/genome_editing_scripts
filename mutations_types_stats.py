@@ -23,7 +23,8 @@ def extract_mutations_info(bam_file: Path,
                            ref_fasta: Path,
                            start_pos: int,
                            end_pos: int,
-                           threads: int):
+                           threads: int,
+                           header: bool):
     insertion, deletion, snp = 0, 0, 0
     with pysam.AlignmentFile(bam_file, 'rb', threads=threads) as bam:
         for column in bam.pileup(contig=get_ref_name(ref_fasta=ref_fasta),
@@ -42,7 +43,9 @@ def extract_mutations_info(bam_file: Path,
                     insertion += 1
                 elif re.search(r'-[0-9]+[ACGTNacgtn]+', str(pos)):
                     deletion += 1
-    print(f's\ti\td\n{snp}\t{insertion}\t{deletion}')
+    if not header:
+        print(f's\ti\td')
+    print(f'{snp}\t{insertion}\t{deletion}')
 
 
 if __name__ == '__main__':
@@ -66,6 +69,9 @@ if __name__ == '__main__':
     parser.add_argument('--threads', metavar='',
                         help='number of threads (default: 1)',
                         type=int, default=1)
+    parser.add_argument('--header',
+                        help='add header to results output',
+                        action='store_false')
 
     args = parser.parse_args()
 
@@ -74,4 +80,5 @@ if __name__ == '__main__':
                            ref_fasta=args.ref_fasta,
                            start_pos=args.start_pos,
                            end_pos=args.end_pos,
-                           threads=args.threads)
+                           threads=args.threads,
+                           header=args.header)

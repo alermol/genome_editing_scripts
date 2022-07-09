@@ -23,7 +23,8 @@ def extract_mutations_info(bam_file: Path,
                            ref_fasta: Path,
                            start_pos: int,
                            end_pos: int,
-                           threads: int):
+                           threads: int,
+                           header: bool):
     lengths = []
     with pysam.AlignmentFile(bam_file, 'rb', threads=threads) as bam:
         for column in bam.pileup(contig=get_ref_name(ref_fasta=ref_fasta),
@@ -43,8 +44,9 @@ def extract_mutations_info(bam_file: Path,
                         int(re.search(r'[0-9]+', str(pos)).group(0)))
     strict_lengths = [lengths.count(i) for i in range(1, 10)]
     length_gt10 = str(len(lengths) - sum(strict_lengths))
-    header = '\t'.join([str(i) for i in range(1, 10)])
-    print(f"{header}\t>=10")
+    if not header:
+        header = '\t'.join([str(i) for i in range(1, 10)])
+        print(f"{header}\t>=10")
     print('\t'.join([str(i) for i in strict_lengths] + [length_gt10]))
 
 
@@ -69,6 +71,9 @@ if __name__ == '__main__':
     parser.add_argument('--threads', metavar='',
                         help='number of threads (default: 1)',
                         type=int, default=1)
+    parser.add_argument('--header',
+                        help='add header to results output',
+                        action='store_false')
 
     args = parser.parse_args()
 
@@ -77,4 +82,5 @@ if __name__ == '__main__':
                            ref_fasta=args.ref_fasta,
                            start_pos=args.start_pos,
                            end_pos=args.end_pos,
-                           threads=args.threads)
+                           threads=args.threads,
+                           header=args.header)
